@@ -214,7 +214,7 @@ def print_diff(expected, response):
 def test_import():
     for index, batch in enumerate(IMPORT_BATCHES):
         print(f"Importing batch {index}")
-        status, _ = request("/imports", method="POST", data=batch)
+        status, _ = request("/imports/", method="POST", data=batch)
 
         assert status == 200, f"Expected HTTP status code 200, got {status}"
 
@@ -222,7 +222,7 @@ def test_import():
 
 
 def test_nodes():
-    status, response = request(f"/nodes/{ROOT_ID}", json_response=True)
+    status, response = request(f"/nodes/{ROOT_ID}/", json_response=True)
     # print(json.dumps(response, indent=2, ensure_ascii=False))
 
     assert status == 200, f"Expected HTTP status code 200, got {status}"
@@ -241,7 +241,7 @@ def test_sales():
     params = urllib.parse.urlencode({
         "date": "2022-02-04T00:00:00.000Z"
     })
-    status, response = request(f"/sales?{params}", json_response=True)
+    status, response = request(f"/sales?{params}/", json_response=True)
     assert status == 200, f"Expected HTTP status code 200, got {status}"
     print("Test sales passed.")
 
@@ -252,17 +252,17 @@ def test_stats():
         "dateEnd": "2022-02-03T00:00:00.000Z"
     })
     status, response = request(
-        f"/node/{ROOT_ID}/statistic?{params}", json_response=True)
+        f"/node/{ROOT_ID}/statistic?{params}/", json_response=True)
 
     assert status == 200, f"Expected HTTP status code 200, got {status}"
     print("Test stats passed.")
 
 
 def test_delete():
-    status, _ = request(f"/delete/{ROOT_ID}", method="DELETE")
+    status, _ = request(f"/delete/{ROOT_ID}/", method="DELETE")
     assert status == 200, f"Expected HTTP status code 200, got {status}"
 
-    status, _ = request(f"/nodes/{ROOT_ID}", json_response=True)
+    status, _ = request(f"/nodes/{ROOT_ID}/", json_response=True)
     assert status == 404, f"Expected HTTP status code 404, got {status}"
 
     print("Test delete passed.")
@@ -278,7 +278,7 @@ def test_all():
 
 def main():
     global API_BASEURL
-    test_name = None
+    test_name = 'import'
 
     for arg in sys.argv[1:]:
         if re.match(r"^https?://", arg):
