@@ -1,0 +1,32 @@
+# python cache
+*.pyc
+*__pycache__/
+*ipynb_checkpoints/
+
+# JetBrains IDE
+.idea/
+
+# virtual environment
+venv/
+
+# local database
+db.sqlite3
+
+# logging
+logs/
+
+# user images
+mediafiles/
+
+# static
+staticfiles/
+
+# coverage
+.coverage
+htmlcov/
+
+# trash
+.DS_Store
+
+# local env
+Products/.env

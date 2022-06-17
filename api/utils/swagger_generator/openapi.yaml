@@ -4,8 +4,9 @@ info:
   title: Mega Market Open API
   version: "1.0"
 paths:
-  /imports:
+  /imports/:
     post:
+      operationId: api.base.views.imports  # added handler
       tags:
         - Базовые задачи
       description: |
@@ -45,8 +46,9 @@ paths:
                       "code": 400,
                       "message": "Validation Failed"
                     }
-  /delete/{id}:
+  /delete/{id}/:
     delete:
+      operationId: api.base.views._delete  # added handler
       tags:
         - Базовые задачи
       description: |
@@ -93,8 +95,9 @@ paths:
                       "code": 404,
                       "message": "Item not found"
                     }
-  /nodes/{id}:
+  /nodes/{id}/:
     get:
+      operationId: api.base.views.nodes  # added handler
       tags:
         - Базовые задачи
       description: |
@@ -144,8 +147,9 @@ paths:
                       "code": 404,
                       "message": "Item not found"
                     }
-  /sales:
+  /sales/:
     get:
+      operationId: api.additional.views.sales  # added handler
       tags:
         - Дополнительные задачи
       description: |
@@ -179,8 +183,9 @@ paths:
                       "code": 400,
                       "message": "Validation Failed"
                     }
-  /node/{id}/statistic:
+  /node/{id}/statistic/:
     get:
+      operationId: api.additional.views.node_statistic  # added handler
       tags:
         - Дополнительные задачи
       description: |
@@ -276,7 +281,7 @@ components:
           type: string
           format: date-time
           nullable: false
-          description: Время последнего обновления элемента. 
+          description: Время последнего обновления элемента.
           example: "2022-05-28T21:12:01.000Z"
         parentId:
           type: string
