@@ -34,12 +34,12 @@ def index(request):
 api_urlpatterns = [
     # base
     path('imports/', imports, name='imports'),
-    path('delete/<int:id>/', _delete, name='_delete'),
-    path('nodes/<int:id>/', nodes, name='nodes'),
+    path('delete/<str:id>/', _delete, name='_delete'),
+    path('nodes/<str:id>/', nodes, name='nodes'),
 
     # additional
     path('sales/', sales, name='sales'),
-    path('node/<int:id>/statistic/', node_statistic, name='node_statistic'),
+    path('node/<str:id>/statistic/', node_statistic, name='node_statistic'),
 ]
 
 urlpatterns = [

@@ -1,4 +1,5 @@
 responses = {
+    200: None,
     400: {
         'code': 400,
         'message': 'Validation Failed'
@@ -6,5 +7,5 @@ responses = {
     404: {
         'code': 404,
         'message': 'Item not found'
-    }
+    },
 }

@@ -21,7 +21,9 @@ mediafiles/
 # static
 staticfiles/
 
-# coverage
+# tests
+expected.json
+response.json
 .coverage
 htmlcov/
 

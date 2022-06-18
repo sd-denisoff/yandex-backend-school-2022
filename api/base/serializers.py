@@ -1,4 +1,5 @@
 from datetime import datetime
+from math import floor
 
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
@@ -8,13 +9,25 @@ from api.utils.responses import responses
 
 
 def validate_datetime(dt_str):
+    """ISO 8601 format"""
     try:
-        return datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
+        datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
     except:
         raise ValidationError(responses[400])
 
 
+class RecursiveField(serializers.Serializer):
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        data = serializer.data
+        if not data['children'] or data['children'] is None:
+            data['children'] = None if value.type == 'OFFER' else []
+        return data
+
+
 class ItemModelSerializer(serializers.ModelSerializer):
+    children = RecursiveField(many=True)
+
     class Meta:
         model = Item
         fields = '__all__'
@@ -52,10 +65,35 @@ class ItemModelSerializer(serializers.ModelSerializer):
             raise ValidationError(responses[400])
 
         # check dt format
-        validated_data['date'] = validate_datetime(validated_data['date'])
+        validate_datetime(validated_data['date'])
 
         return validated_data
 
     def update_or_create(self, validated_data):
         id = validated_data.pop('id')
         return self.Meta.model.objects.update_or_create(id=id, defaults=validated_data)
+
+    def update_dates(self, item):
+        update_date = item.date
+        if item.parent is not None:
+            item.parent.date = update_date
+            item.parent.save()
+            self.update_dates(item.parent)
+
+    def calc_sub_prices(self, prices, item):
+        if item['children'] is not None:
+            for child in item['children']:
+                if child['type'] == 'OFFER':
+                    prices.append(child['price'])
+                else:
+                    sub_prices = self.calc_sub_prices([], child)
+                    prices.extend(sub_prices)
+        return prices
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['parentId'] = representation.pop('parent')
+        if representation['price'] is None:
+            prices = self.calc_sub_prices([], representation)
+            representation['price'] = floor(sum(prices) / len(prices)) if prices else None
+        return representation
