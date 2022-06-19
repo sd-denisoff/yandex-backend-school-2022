@@ -1,6 +1,6 @@
 from datetime import datetime
-from math import floor
 
+from math import floor
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 
@@ -12,7 +12,7 @@ def validate_datetime(dt_str):
     """ISO 8601 format"""
     try:
         datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
-    except:
+    except ValueError:
         raise ValidationError(responses[400])
 
 
