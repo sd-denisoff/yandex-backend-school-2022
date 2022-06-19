@@ -33,7 +33,7 @@ migrate:
 	docker-compose exec web python manage.py migrate --noinput
 
 test:
-	docker-compose exec web python tests/baseline.py
+	docker-compose exec -T web python tests/baseline.py
 
 stop:
 	docker-compose stop
