@@ -21,7 +21,7 @@ build:
 	docker-compose build
 
 run:
-	docker-compose up --build -d
+	docker-compose up -d --remove-orphans --build
 
 install:
 	docker-compose exec web pip install -r requirements.txt
