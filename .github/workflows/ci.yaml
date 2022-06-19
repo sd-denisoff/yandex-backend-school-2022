@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: docker://postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: db_user
+          POSTGRES_PASSWORD: db_password
+          POSTGRES_DB: db_name
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: test
+        uses: docker://snakepacker/python:all
+        env:
+          CI_ANALYZER_PG_URL: postgresql://db_user:db_password@db/db_name
+        with:
+          args: /bin/bash -c "python tests/baseline.py"

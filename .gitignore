@@ -9,8 +9,9 @@
 # virtual environment
 venv/
 
-# local database
+# databases
 db.sqlite3
+pgdata/
 
 # logging
 logs/

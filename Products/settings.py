@@ -29,7 +29,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1')
 
-HOST = os.getenv('HOST')
 ALLOWED_HOSTS = ['*']
 
 SWAGGER_YAML_FILE = 'api/utils/swagger_generator/openapi.yaml'
@@ -86,29 +85,20 @@ WSGI_APPLICATION = 'Products.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DB_NAME = os.getenv('DB_NAME')
-# DB_USER = os.getenv('DB_USER')
-# DB_PASSWORD = os.getenv('DB_PASSWORD')
-# DB_HOST = os.getenv('DB_HOST')
-# DB_PORT = os.getenv('DB_PORT')
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': DB_NAME,
-#         'USER': DB_USER,
-#         'PASSWORD': DB_PASSWORD,
-#         'HOST': DB_HOST,
-#         'PORT': DB_PORT,
-#     }
-# }
-
-DB_NAME = BASE_DIR / 'db.sqlite3'
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 

@@ -9,7 +9,7 @@ class Item(models.Model):
 
     id = models.CharField(max_length=256, primary_key=True)
     name = models.CharField(max_length=256)
-    type = models.CharField(max_length=1, choices=ItemType.choices)
+    type = models.CharField(max_length=10, choices=ItemType.choices)
     parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, null=True)
     price = models.IntegerField(null=True)
     date = models.CharField(max_length=32)
