@@ -33,8 +33,7 @@ migrate:
 	docker-compose run web python manage.py migrate
 
 test:
-	docker-compose exec -T web python tests/baseline.py
-	docker-compose exec -T web python tests/test_imports.py
+	docker-compose exec -T web python tests/test_all.py
 
 stop:
 	docker-compose stop

@@ -1,6 +1,6 @@
 # encoding=utf8
 
-from tests import *
+from . import *
 
 IMPORT_GOOD_BATCHES = [
     {

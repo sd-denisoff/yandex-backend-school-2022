@@ -1,4 +1,4 @@
-from tests import *
+from . import *
 
 
 def test_delete():

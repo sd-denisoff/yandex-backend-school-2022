@@ -1,6 +1,6 @@
 import sys
 
-from tests import *
+from . import *
 
 EXPECTED_TREE_000 = {
     "type": "CATEGORY",
