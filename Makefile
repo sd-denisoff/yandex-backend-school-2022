@@ -24,13 +24,13 @@ run:
 	docker-compose up -d --remove-orphans --build
 
 install:
-	docker-compose exec web pip install -r requirements.txt
+	docker-compose run web pip install -r requirements.txt
 
 makemigrations:
-	docker-compose exec web python manage.py makemigrations
+	docker-compose run web python manage.py makemigrations
 
 migrate:
-	docker-compose exec web python manage.py migrate --noinput
+	docker-compose run web python manage.py migrate
 
 test:
 	docker-compose exec -T web python tests/baseline.py
