@@ -13,5 +13,5 @@ def sales(request):
 
 @api_view(['GET'])
 def node_statistic(request, id):
-    LOGGER.info('Hello, world!')
-    return Response('Hello, world!', status=status.HTTP_200_OK)
+    # skipped
+    return Response(status=status.HTTP_200_OK)

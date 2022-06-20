@@ -23,7 +23,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Start test server
         run: |
-          make migrate
           make run
+          make migrate
       - name: Run tests
         run: make test

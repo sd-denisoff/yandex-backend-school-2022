@@ -30,10 +30,8 @@ class ItemModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = '__all__'
-
-    def get_model_fields(self):
-        return [field.name for field in Item._meta.fields]
+        input_fields = ['id', 'name', 'type', 'parent', 'price', 'date']
+        fields = input_fields + ['children']
 
     def validate(self, data):
         validated_data = {}
@@ -45,9 +43,8 @@ class ItemModelSerializer(serializers.ModelSerializer):
         data['parent'] = parent
 
         # check data fields
-        model_fields = self.get_model_fields()
         required_fields = ['id', 'name', 'type']
-        for field in model_fields:
+        for field in self.Meta.input_fields:
             if field not in data and field in required_fields:
                 raise ValidationError(responses[400])
             elif field in data:

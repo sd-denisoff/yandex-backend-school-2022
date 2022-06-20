@@ -7,12 +7,16 @@ class Item(models.Model):
         OFFER = 'O', _('OFFER')
         CATEGORY = 'C', _('CATEGORY')
 
+    # base
     id = models.CharField(max_length=256, primary_key=True)
     name = models.CharField(max_length=256)
     type = models.CharField(max_length=10, choices=ItemType.choices)
     parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, null=True)
     price = models.IntegerField(null=True)
     date = models.CharField(max_length=32)
+
+    # additional
+    price_last_update = models.CharField(max_length=32)
 
     def __str__(self):
         return f'Item {self.name} of type {self.type}'
