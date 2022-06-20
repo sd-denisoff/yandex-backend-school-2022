@@ -192,7 +192,7 @@ def baseline_test_sales():
     params = urllib.parse.urlencode({
         "date": "2022-02-04T00:00:00.000Z"
     })
-    status, response = request(f"/sales?{params}/", json_response=True)
+    status, response = request(f"/sales/?{params}", json_response=True)
     assert status == 200, f"Expected HTTP status code 200, got {status}"
     print("Test sales passed.")
 
@@ -203,7 +203,7 @@ def baseline_test_stats():
         "dateEnd": "2022-02-03T00:00:00.000Z"
     })
     status, response = request(
-        f"/node/{ROOT_ID}/statistic?{params}/", json_response=True)
+        f"/node/{ROOT_ID}/statistic/?{params}", json_response=True)
 
     assert status == 200, f"Expected HTTP status code 200, got {status}"
     print("Test stats passed.")

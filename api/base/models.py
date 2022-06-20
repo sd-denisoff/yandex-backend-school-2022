@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 class Item(models.Model):
     class ItemType(models.TextChoices):
-        OFFER = 'O', _('OFFER')
-        CATEGORY = 'C', _('CATEGORY')
+        OFFER = 'OFFER', _('OFFER')
+        CATEGORY = 'CATEGORY', _('CATEGORY')
 
     # base
     id = models.CharField(max_length=256, primary_key=True)
@@ -16,7 +16,7 @@ class Item(models.Model):
     date = models.CharField(max_length=32)
 
     # additional
-    price_last_update = models.CharField(max_length=32)
+    price_last_update = models.CharField(max_length=32, null=True)
 
     def __str__(self):
         return f'Item {self.name} of type {self.type}'
